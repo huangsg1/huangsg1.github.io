@@ -4,9 +4,9 @@
   <subtitle>This is a test subtitle</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="huangsg1.github.io/"/>
+  <link href="https://huangsg1.github.io/"/>
   <updated>2016-08-24T12:32:17.985Z</updated>
-  <id>huangsg1.github.io/</id>
+  <id>https://huangsg1.github.io/</id>
   
   <author>
     <name>huangsg</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>测试</title>
-    <link href="huangsg1.github.io/2016/08/24/%E6%B5%8B%E8%AF%95/"/>
-    <id>huangsg1.github.io/2016/08/24/测试/</id>
+    <link href="https://huangsg1.github.io/2016/08/24/%E6%B5%8B%E8%AF%95/"/>
+    <id>https://huangsg1.github.io/2016/08/24/测试/</id>
     <published>2016-08-24T12:31:07.000Z</published>
     <updated>2016-08-24T12:32:17.985Z</updated>
     
@@ -31,21 +31,21 @@
     
     </summary>
     
-      <category term="哈哈1" scheme="huangsg1.github.io/categories/%E5%93%88%E5%93%881/"/>
+      <category term="哈哈1" scheme="https://huangsg1.github.io/categories/%E5%93%88%E5%93%881/"/>
     
     
-      <category term="tag1" scheme="huangsg1.github.io/tags/tag1/"/>
+      <category term="tag1" scheme="https://huangsg1.github.io/tags/tag1/"/>
     
-      <category term="tag2" scheme="huangsg1.github.io/tags/tag2/"/>
+      <category term="tag2" scheme="https://huangsg1.github.io/tags/tag2/"/>
     
-      <category term="..." scheme="huangsg1.github.io/tags//"/>
+      <category term="..." scheme="https://huangsg1.github.io/tags//"/>
     
   </entry>
   
   <entry>
     <title>第三个测试</title>
-    <link href="huangsg1.github.io/2016/08/24/%E7%AC%AC%E4%B8%89%E4%B8%AA%E6%B5%8B%E8%AF%95/"/>
-    <id>huangsg1.github.io/2016/08/24/第三个测试/</id>
+    <link href="https://huangsg1.github.io/2016/08/24/%E7%AC%AC%E4%B8%89%E4%B8%AA%E6%B5%8B%E8%AF%95/"/>
+    <id>https://huangsg1.github.io/2016/08/24/第三个测试/</id>
     <published>2016-08-24T07:59:52.000Z</published>
     <updated>2016-08-25T07:17:58.411Z</updated>
     
@@ -62,19 +62,19 @@
     
     </summary>
     
-      <category term="哈哈" scheme="huangsg1.github.io/categories/%E5%93%88%E5%93%88/"/>
+      <category term="哈哈" scheme="https://huangsg1.github.io/categories/%E5%93%88%E5%93%88/"/>
     
     
-      <category term="tag1" scheme="huangsg1.github.io/tags/tag1/"/>
+      <category term="tag1" scheme="https://huangsg1.github.io/tags/tag1/"/>
     
-      <category term="tag2" scheme="huangsg1.github.io/tags/tag2/"/>
+      <category term="tag2" scheme="https://huangsg1.github.io/tags/tag2/"/>
     
   </entry>
   
   <entry>
     <title>第二个测试</title>
-    <link href="huangsg1.github.io/2016/08/24/%E7%AC%AC%E4%BA%8C%E4%B8%AA%E6%B5%8B%E8%AF%95/"/>
-    <id>huangsg1.github.io/2016/08/24/第二个测试/</id>
+    <link href="https://huangsg1.github.io/2016/08/24/%E7%AC%AC%E4%BA%8C%E4%B8%AA%E6%B5%8B%E8%AF%95/"/>
+    <id>https://huangsg1.github.io/2016/08/24/第二个测试/</id>
     <published>2016-08-24T07:53:20.000Z</published>
     <updated>2016-08-25T09:03:44.115Z</updated>
     
@@ -95,8 +95,8 @@
   
   <entry>
     <title>我是题目</title>
-    <link href="huangsg1.github.io/2016/08/24/%E6%88%91%E6%98%AF%E9%A2%98%E7%9B%AE/"/>
-    <id>huangsg1.github.io/2016/08/24/我是题目/</id>
+    <link href="https://huangsg1.github.io/2016/08/24/%E6%88%91%E6%98%AF%E9%A2%98%E7%9B%AE/"/>
+    <id>https://huangsg1.github.io/2016/08/24/我是题目/</id>
     <published>2016-08-24T07:39:54.000Z</published>
     <updated>2016-08-25T09:04:17.984Z</updated>
     
@@ -114,14 +114,14 @@
     </summary>
     
     
-      <category term="测试" scheme="huangsg1.github.io/tags/%E6%B5%8B%E8%AF%95/"/>
+      <category term="测试" scheme="https://huangsg1.github.io/tags/%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="huangsg1.github.io/2016/08/18/hello-world/"/>
-    <id>huangsg1.github.io/2016/08/18/hello-world/</id>
+    <link href="https://huangsg1.github.io/2016/08/18/hello-world/"/>
+    <id>https://huangsg1.github.io/2016/08/18/hello-world/</id>
     <published>2016-08-18T12:13:52.588Z</published>
     <updated>2016-08-18T12:13:52.588Z</updated>
     
