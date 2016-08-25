@@ -915,7 +915,7 @@ figure.highlight,
       color: #515151; }
   figure.highlight .code,
   .codeblock .code {
-    padding: 0.4em 30px 0.4em 1.1em;
+    padding: 0.3em 15px 0.3em 1em;
     width: 100%; }
     figure.highlight .code pre,
     .codeblock .code pre {
@@ -930,7 +930,7 @@ figure.highlight,
 .gist .line,
 .gist .line-number {
   font-family: Menlo, Consolas, monospace;
-  font-size: 1em;
+  font-size: 2em;
   margin: 0 0 5px 0; }
 
 .highlight .comment {
