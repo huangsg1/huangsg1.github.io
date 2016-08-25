@@ -864,7 +864,7 @@ figure.highlight,
 .codeblock {
   background: #f7f8f8;
   margin: 10px 0;
-  line-height: 1.1em;
+  line-height: 2em;
   color: #333;
   padding-top: 15px;
   overflow: hidden; }
@@ -930,7 +930,7 @@ figure.highlight,
 .gist .line,
 .gist .line-number {
   font-family: Menlo, Consolas, monospace;
-  font-size: 2em;
+  font-size: 1em;
   margin: 0 0 5px 0; }
 
 .highlight .comment {
