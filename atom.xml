@@ -47,7 +47,7 @@
     <link href="https://huangsg1.github.io/2016/08/24/%E7%AC%AC%E4%B8%89%E4%B8%AA%E6%B5%8B%E8%AF%95/"/>
     <id>https://huangsg1.github.io/2016/08/24/第三个测试/</id>
     <published>2016-08-24T07:59:52.000Z</published>
-    <updated>2016-08-24T15:48:09.397Z</updated>
+    <updated>2016-08-25T02:54:44.718Z</updated>
     
     <content type="html"><![CDATA[<p>我团队已开发形成系统关键模型算法<br><a id="more"></a></p>
 <h2 id="这是一个神奇的测试代码"><a href="#这是一个神奇的测试代码" class="headerlink" title="这是一个神奇的测试代码"></a>这是一个神奇的测试代码</h2><p>我团队已开发形成系统关键模型算法，并开发了相应产品样机，并正在沈阳铁路局推行上车实验工作。图7是本团队研发的货运机车运行节能优化操纵系统样机。图8为本团队研发的货运机车运行节能硬件在环半实物仿真测试平台，为本项目硬件在环半实物仿真提供实验环境。图9为项目申请人与团队成员在机车实车实验现场。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"Test code!\n"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
