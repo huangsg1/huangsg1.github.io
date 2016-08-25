@@ -880,7 +880,7 @@ figure.highlight,
   .codeblock .gutter,
   .codeblock .code,
   .codeblock .tag {
-    background-color: #000000;
+    background-color: #ffffff;
     font-family: Menlo, Consolas, monospace;
     border: none;
     padding: 0;
