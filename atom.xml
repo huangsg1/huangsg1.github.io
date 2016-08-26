@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://huangsg1.github.io/"/>
-  <updated>2016-08-24T12:32:17.985Z</updated>
+  <updated>2016-08-26T11:34:19.174Z</updated>
   <id>https://huangsg1.github.io/</id>
   
   <author>
@@ -16,114 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>测试</title>
-    <link href="https://huangsg1.github.io/2016/08/24/%E6%B5%8B%E8%AF%95/"/>
-    <id>https://huangsg1.github.io/2016/08/24/测试/</id>
-    <published>2016-08-24T12:31:07.000Z</published>
-    <updated>2016-08-24T12:32:17.985Z</updated>
-    
-    <content type="html"><![CDATA[<p>我团队已开发形成系统关键模型算法，并开发了相应产品样机，并正在沈阳铁路局推行上车实验工作。<br>图7是本团队研发的货运机车运行节能优化操纵系统样机。图8为本团队研发的货运机车运行节能硬件在环半实物仿真测试平台，<br><a id="more"></a><br>为本项目硬件在环半实物仿真提供实验环境。图9为项目申请人与团队成员在机车实车实验现场。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;我团队已开发形成系统关键模型算法，并开发了相应产品样机，并正在沈阳铁路局推行上车实验工作。&lt;br&gt;图7是本团队研发的货运机车运行节能优化操纵系统样机。图8为本团队研发的货运机车运行节能硬件在环半实物仿真测试平台，&lt;br&gt;
-    
-    </summary>
-    
-      <category term="哈哈1" scheme="https://huangsg1.github.io/categories/%E5%93%88%E5%93%881/"/>
-    
-    
-      <category term="tag1" scheme="https://huangsg1.github.io/tags/tag1/"/>
-    
-      <category term="tag2" scheme="https://huangsg1.github.io/tags/tag2/"/>
-    
-      <category term="..." scheme="https://huangsg1.github.io/tags//"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第三个测试</title>
-    <link href="https://huangsg1.github.io/2016/08/24/%E7%AC%AC%E4%B8%89%E4%B8%AA%E6%B5%8B%E8%AF%95/"/>
-    <id>https://huangsg1.github.io/2016/08/24/第三个测试/</id>
-    <published>2016-08-24T07:59:52.000Z</published>
-    <updated>2016-08-25T07:17:58.411Z</updated>
-    
-    <content type="html"><![CDATA[<p>我团队已开发形成系统关键模型算法<br><a id="more"></a></p>
-<h2 id="这是一个神奇的测试代码"><a href="#这是一个神奇的测试代码" class="headerlink" title="这是一个神奇的测试代码"></a>这是一个神奇的测试代码</h2><p>我团队已开发形成系统关键模型算法，并开发了相应产品样机，并正在沈阳铁路局推行上车实验工作。图7是本团队研发的货运机车运行节能优化操纵系统样机。图8为本团队研发的货运机车运行节能硬件在环半实物仿真测试平台，为本项目硬件在环半实物仿真提供实验环境。图9为项目申请人与团队成员在机车实车实验现场。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"Test code!\n"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'window loaded'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h2 id="继续测试"><a href="#继续测试" class="headerlink" title="继续测试"></a>继续测试</h2><p>我团队已开发形成系统关键模型算法，并开发了相应产品样机，并正在沈阳铁路局推行上车实验工作。图7是本团队研发的货运机车运行节能优化操纵系统样机。图8为本团队研发的货运机车运行节能硬件在环半实物仿真测试平台，为本项目硬件在环半实物仿真提供实验环境。图9为项目申请人与团队成员在机车实车实验现场。<br>我团队已开发形成系统关键模型算法，并开发了相应产品样机，并正在沈阳铁路局推行上车实验工作。图7是本团队研发的货运机车运行节能优化操纵系统样机。图8为本团队研发的货运机车运行节能硬件在环半实物仿真测试平台，为本项目硬件在环半实物仿真提供实验环境。图9为项目申请人与团队成员在机车实车实验现场。</p>
-<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>我团队已开发形成系统关键模型算法，并开发了相应产品样机，并正在沈阳铁路局推行上车实验工作。图7是本团队研发的货运机车运行节能优化操纵系统样机。图8为本团队研发的货运机车运行节能硬件在环半实物仿真测试平台，为本项目硬件在环半实物仿真提供实验环境。图9为项目申请人与团队成员在机车实车实验现场。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;我团队已开发形成系统关键模型算法&lt;br&gt;
-    
-    </summary>
-    
-      <category term="哈哈" scheme="https://huangsg1.github.io/categories/%E5%93%88%E5%93%88/"/>
-    
-    
-      <category term="tag1" scheme="https://huangsg1.github.io/tags/tag1/"/>
-    
-      <category term="tag2" scheme="https://huangsg1.github.io/tags/tag2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第二个测试</title>
-    <link href="https://huangsg1.github.io/2016/08/24/%E7%AC%AC%E4%BA%8C%E4%B8%AA%E6%B5%8B%E8%AF%95/"/>
-    <id>https://huangsg1.github.io/2016/08/24/第二个测试/</id>
-    <published>2016-08-24T07:53:20.000Z</published>
-    <updated>2016-08-25T09:03:44.115Z</updated>
-    
-    <content type="html"><![CDATA[<p>安装好Hexo博客之后，想要给博客加一下统计代码，国内比较流行的统计代码有51la、cnzz、baidu、腾讯统计等，根据使用习惯和功能来看，比较习惯于CNZZ的统计后台使用，所以选择了CNZZ。<br><a id="more"></a><br>确定好统计代码用CNZZ之后，就要动手添加了，为了让全站页面都被统计到，当然应该把统计代码加到模板中的base页面或者footer页脚。但是网上查到的修改教程都是针对于ejs模板的修改，而maupassant这个主题是基于jade的。</p>
-<p>但是添加模板区块的大致流程是一样的，无外乎以下几个步骤：</p>
-<p>在_config.yml中开启统计 例如：cnzz: true<br>在模板中根据配置判断，加载显示统计代码<br>由于CNZZ默认会显示一个图标，与网站风格不符，需要隐藏掉<br>上面步骤是一般的流程，优点在于可以控制统计代码关闭，当然如果模板只想自己使用，可以直接在模板中写死，省时省力。</p>
-<p>首先呢，你得先去申请一个统计代码[<a href="http://zhanzhang.cnzz.com/" target="_blank" rel="external">http://zhanzhang.cnzz.com/</a>]</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;安装好Hexo博客之后，想要给博客加一下统计代码，国内比较流行的统计代码有51la、cnzz、baidu、腾讯统计等，根据使用习惯和功能来看，比较习惯于CNZZ的统计后台使用，所以选择了CNZZ。&lt;br&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>我是题目</title>
-    <link href="https://huangsg1.github.io/2016/08/24/%E6%88%91%E6%98%AF%E9%A2%98%E7%9B%AE/"/>
-    <id>https://huangsg1.github.io/2016/08/24/我是题目/</id>
-    <published>2016-08-24T07:39:54.000Z</published>
-    <updated>2016-08-25T09:04:17.984Z</updated>
-    
-    <content type="html"><![CDATA[<p>文章的价值除了只是利用博客展示给他人阅读之外，更多地来自于阅读者之间的讨论。所以给自己的博客文章加入评论功能是非常必要的。然而Hexo只是个纯静态网站生成器，只生成浏览器可以解析的网页内容，并不涉及到服务端的东西，而自己也不想费时费力去搞一个评论功能的服务端逻辑。即使有服务端代码，Github也不允许你运行。所以对于像我这种纠结的人来说，使用国内的“多说”最好不过了╮(╯▽╰)╭。那为嘛不使用Hexo自带的Disqus呢？因为它的服务商在墙外呀，看着别人的博客用了Disqus，等了半天都加载不出来，2333333333。<br>废话不多说，立刻开始。<br><a id="more"></a><br>安装好Hexo博客之后，想要给博客加一下统计代码，国内比较流行的统计代码有51la、cnzz、baidu、腾讯统计等，根据使用习惯和功能来看，比较习惯于CNZZ的统计后台使用，所以选择了CNZZ。</p>
-<p>确定好统计代码用CNZZ之后，就要动手添加了，为了让全站页面都被统计到，当然应该把统计代码加到模板中的base页面或者footer页脚。但是网上查到的修改教程都是针对于ejs模板的修改，而maupassant这个主题是基于jade的。</p>
-<p>但是添加模板区块的大致流程是一样的，无外乎以下几个步骤：</p>
-<p>在_config.yml中开启统计 例如：cnzz: true<br>在模板中根据配置判断，加载显示统计代码<br>由于CNZZ默认会显示一个图标，与网站风格不符，需要隐藏掉<br>上面步骤是一般的流程，优点在于可以控制统计代码关闭，当然如果模板只想自己使用，可以直接在模板中写死，省时省力。</p>
-<p>首先呢，你得先去申请一个统计代码[<a href="http://zhanzhang.cnzz.com/" target="_blank" rel="external">http://zhanzhang.cnzz.com/</a>]</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;文章的价值除了只是利用博客展示给他人阅读之外，更多地来自于阅读者之间的讨论。所以给自己的博客文章加入评论功能是非常必要的。然而Hexo只是个纯静态网站生成器，只生成浏览器可以解析的网页内容，并不涉及到服务端的东西，而自己也不想费时费力去搞一个评论功能的服务端逻辑。即使有服务端代码，Github也不允许你运行。所以对于像我这种纠结的人来说，使用国内的“多说”最好不过了╮(╯▽╰)╭。那为嘛不使用Hexo自带的Disqus呢？因为它的服务商在墙外呀，看着别人的博客用了Disqus，等了半天都加载不出来，2333333333。&lt;br&gt;废话不多说，立刻开始。&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="测试" scheme="https://huangsg1.github.io/tags/%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Hello World</title>
     <link href="https://huangsg1.github.io/2016/08/18/hello-world/"/>
     <id>https://huangsg1.github.io/2016/08/18/hello-world/</id>
     <published>2016-08-18T12:13:52.588Z</published>
-    <updated>2016-08-18T12:13:52.588Z</updated>
+    <updated>2016-08-26T11:34:19.174Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
@@ -142,6 +39,10 @@
     
     </summary>
     
+      <category term="说明" scheme="https://huangsg1.github.io/categories/%E8%AF%B4%E6%98%8E/"/>
+    
+    
+      <category term="标签" scheme="https://huangsg1.github.io/tags/%E6%A0%87%E7%AD%BE/"/>
     
   </entry>
   
