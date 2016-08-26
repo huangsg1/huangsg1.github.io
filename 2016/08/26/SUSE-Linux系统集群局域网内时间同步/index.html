@@ -1,28 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title>HSG&#39;s Blog</title>
-  <subtitle>没有行动的思考是在浪费生命</subtitle>
-  <link href="/atom.xml" rel="self"/>
-  
-  <link href="https://huangsg1.github.io/"/>
-  <updated>2016-08-26T13:39:25.161Z</updated>
-  <id>https://huangsg1.github.io/</id>
-  
-  <author>
-    <name>huangsg</name>
-    
-  </author>
-  
-  <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>SUSE Linux系统集群局域网内时间同步</title>
-    <link href="https://huangsg1.github.io/2016/08/26/SUSE-Linux%E7%B3%BB%E7%BB%9F%E9%9B%86%E7%BE%A4%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5/"/>
-    <id>https://huangsg1.github.io/2016/08/26/SUSE-Linux系统集群局域网内时间同步/</id>
-    <published>2016-08-26T13:31:23.000Z</published>
-    <updated>2016-08-26T13:39:25.161Z</updated>
-    
-    <content type="html"><![CDATA[<p>需求是这么来的，搭建了Storm集群进行协同过滤算法的计算性能测试，要求精度在毫秒（ms）级别。局域网内40个虚拟机节点，用 date 命令，精度上和效率上都不可行。所以，就搭建了 NTP 服务器。<br><a id="more"></a></p>
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="技术博客"><title>SUSE Linux系统集群局域网内时间同步 | HSG's Blog</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/4.2.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.3"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">SUSE Linux系统集群局域网内时间同步</h1><a id="logo" href="/.">HSG's Blog</a><p class="description">没有行动的思考是在浪费生命</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 主页</i></a><a href="/archives/"><i class="fa fa-archive"> 分类</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/timeline/"><i class="fa fa-globe"> 时间线</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">SUSE Linux系统集群局域网内时间同步</h1><div class="post-meta">Aug 26, 2016<span> | </span><span class="category"><a href="/categories/Linux/">Linux</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><a data-thread-key="2016/08/26/SUSE-Linux系统集群局域网内时间同步/" href="/2016/08/26/SUSE-Linux系统集群局域网内时间同步/#comments" class="ds-thread-count"></a><div class="clear"><div id="toc" class="toc-article"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-简介"><span class="toc-number">1.</span> <span class="toc-text">1.简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-实验环境"><span class="toc-number">2.</span> <span class="toc-text">2.实验环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-服务器搭建步骤"><span class="toc-number">3.</span> <span class="toc-text">3.服务器搭建步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-查看NTP运行状态命令"><span class="toc-number">4.</span> <span class="toc-text">4.查看NTP运行状态命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-实验接着做"><span class="toc-number">5.</span> <span class="toc-text">5.实验接着做</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接："><span class="toc-number">6.</span> <span class="toc-text">参考链接：</span></a></li></ol></div></div><div class="post-content"><p>需求是这么来的，搭建了Storm集群进行协同过滤算法的计算性能测试，要求精度在毫秒（ms）级别。局域网内40个虚拟机节点，用 date 命令，精度上和效率上都不可行。所以，就搭建了 NTP 服务器。<br><a id="more"></a></p>
 <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>简单的说就是选择几部主要主机 (Primary server) 调校时间，让这些 Primary Servers 的时间同步之后，再开放网络服务来让 Client 端联机，最后使Client 端调整自己的时间。NTP（Network Time Protocol）就是实现这个过程的一个网络时间协议。它是一个跨越广域网或局域网的复杂的同步时间协议，可使得机器获得毫秒级的精度。NTP协议是OSI参考模型的高层协议，符合UDP传输协议格式，拥有专用端口（Port）123。随着时间的推移，计算机的时钟（硬件时钟）会倾向于漂移。网络时间协议（NTP）即可为路由器、交换机、工作站和服务器之间提供一种时间同步的机制。<br>详情：<a href="http://www.ntp.org/" target="_blank" rel="external">官网链接</a></p>
 <h2 id="2-实验环境"><a href="#2-实验环境" class="headerlink" title="2.实验环境"></a>2.实验环境</h2><pre><code>操作系统： SUSE Linux Enterprise Server 11 (x86_64)
 NTP版本：ntpq 4.2.4p8@1.1612-o Sat May  8 09:39:49 UTC 2010 (1) （系统自带，也可自行下载安装）
@@ -68,50 +44,13 @@ NTP版本：ntpq 4.2.4p8@1.1612-o Sat May  8 09:39:49 UTC 2010 (1) （系统自�
 <li><a href="http://blog.csdn.net/wzy_1988/article/details/8629304" target="_blank" rel="external">http://blog.csdn.net/wzy_1988/article/details/8629304</a></li>
 <li><a href="http://linuxtools-rst.readthedocs.org/zh_CN/latest/tool/crontab.html" target="_blank" rel="external">http://linuxtools-rst.readthedocs.org/zh_CN/latest/tool/crontab.html</a></li>
 </ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;需求是这么来的，搭建了Storm集群进行协同过滤算法的计算性能测试，要求精度在毫秒（ms）级别。局域网内40个虚拟机节点，用 date 命令，精度上和效率上都不可行。所以，就搭建了 NTP 服务器。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="https://huangsg1.github.io/categories/Linux/"/>
-    
-    
-      <category term="linux" scheme="https://huangsg1.github.io/tags/linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://huangsg1.github.io/2016/08/18/hello-world/"/>
-    <id>https://huangsg1.github.io/2016/08/18/hello-world/</id>
-    <published>2016-08-18T12:13:52.588Z</published>
-    <updated>2016-08-26T11:34:19.174Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-    
-    </summary>
-    
-      <category term="说明" scheme="https://huangsg1.github.io/categories/%E8%AF%B4%E6%98%8E/"/>
-    
-    
-      <category term="标签" scheme="https://huangsg1.github.io/tags/%E6%A0%87%E7%AD%BE/"/>
-    
-  </entry>
-  
-</feed>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.3" async></script><a data-url="https://huangsg1.github.io/2016/08/26/SUSE-Linux系统集群局域网内时间同步/" data-id="cisbt1tos0000n4pbv2jl4n8l" class="article-share-link">分享到</a><div class="tags"><a href="/tags/linux/">linux</a></div><div class="post-nav"><a href="/2016/08/18/hello-world/" class="next">Hello World</a></div><div data-thread-key="2016/08/26/SUSE-Linux系统集群局域网内时间同步/" data-title="SUSE Linux系统集群局域网内时间同步" data-url="https://huangsg1.github.io/2016/08/26/SUSE-Linux系统集群局域网内时间同步/" data-author-key="1" class="ds-thread"></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://huangsg1.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/说明/">说明</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/08/26/SUSE-Linux系统集群局域网内时间同步/">SUSE Linux系统集群局域网内时间同步</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/18/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/标签/" style="font-size: 15px;">标签</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://blogwall.us/" title="程序员博客墙" target="_blank">程序员博客墙</a><ul></ul><a href="http://www.lyspace.net/" title="Liu Yan" target="_blank">Liu Yan</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">HSG's Blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme. </a> 2016.08</div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.3" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.3" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.3"><script>var duoshuoQuery = {short_name:'huangsg'};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.3"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.3"></script></div></body></html>
