@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://hsgspace.com/"/>
-  <updated>2016-10-18T07:58:10.972Z</updated>
+  <updated>2016-10-18T08:01:20.944Z</updated>
   <id>http://hsgspace.com/</id>
   
   <author>
@@ -20,12 +20,10 @@
     <link href="http://hsgspace.com/2016/10/18/Linux%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/"/>
     <id>http://hsgspace.com/2016/10/18/Linux 常用命令整理/</id>
     <published>2016-10-18T07:31:23.000Z</published>
-    <updated>2016-10-18T07:58:10.972Z</updated>
+    <updated>2016-10-18T08:01:20.944Z</updated>
     
-    <content type="html"><![CDATA[<blockquote>
-<p>&#x5E38;&#x7528;&#x57FA;&#x672C;&#x547D;&#x4EE4;&#x6C47;&#x96C6;&#x6574;&#x7406;,&#x6301;&#x7EED;&#x66F4;&#x65B0;&#x3002;</p>
+    <content type="html"><![CDATA[<p>&#x5E38;&#x7528;&#x57FA;&#x672C;&#x547D;&#x4EE4;&#x6C47;&#x96C6;&#x6574;&#x7406;,&#x6301;&#x7EED;&#x66F4;&#x65B0;&#x3002;<br><a id="more"></a></p>
 <h2 id="1-&#x67E5;&#x770B;&#x5185;&#x5B58;-&#x76EE;&#x5F55;-&#x6587;&#x4EF6;&#x7684;&#x5927;&#x5C0F;"><a href="#1-&#x67E5;&#x770B;&#x5185;&#x5B58;-&#x76EE;&#x5F55;-&#x6587;&#x4EF6;&#x7684;&#x5927;&#x5C0F;" class="headerlink" title="1.&#x67E5;&#x770B;&#x5185;&#x5B58;/&#x76EE;&#x5F55;/&#x6587;&#x4EF6;&#x7684;&#x5927;&#x5C0F;"></a>1.&#x67E5;&#x770B;&#x5185;&#x5B58;/&#x76EE;&#x5F55;/&#x6587;&#x4EF6;&#x7684;&#x5927;&#x5C0F;</h2><h3 id="1-&#x67E5;&#x770B;&#x5185;&#x5B58;&#x5927;&#x5C0F;"><a href="#1-&#x67E5;&#x770B;&#x5185;&#x5B58;&#x5927;&#x5C0F;" class="headerlink" title="(1)&#x67E5;&#x770B;&#x5185;&#x5B58;&#x5927;&#x5C0F;"></a>(1)&#x67E5;&#x770B;&#x5185;&#x5B58;&#x5927;&#x5C0F;</h3><figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ free -m</div><div class="line">             total       used       free     shared    buffers     cached</div><div class="line">Mem:        <span class="number"> 32117 </span>     <span class="number"> 1714 </span>    <span class="number"> 30403 </span>       <span class="number"> 46 </span>      <span class="number"> 161 </span>       676</div><div class="line">-/+ buffers/cache:       <span class="number"> 877 </span>     31240</div><div class="line">Swap:       <span class="number"> 28608 </span>        <span class="number"> 0 </span>     28608</div></pre></td></tr></table></figure>
-</blockquote>
 <ul>
 <li>&#x5404;&#x5217;&#x5BF9;&#x5E94;&#x9879;&#x8BF4;&#x660E;<ul>
 <li>total&#xFF1A;&#x603B;&#x5171;&#x7684;&#x5185;&#x5B58;&#x5927;&#x5C0F;</li>
@@ -58,7 +56,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="&#x53C2;&#x8003;"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</h3><ul>
+<h2 id="&#x53C2;&#x8003;"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</h2><ul>
 <li><a href="http://weizhifeng.net/view-cpu-memory-info-of-linux.html" target="_blank" rel="external">Linux&#x4E0B;&#x67E5;&#x770B;&#x5185;&#x5B58;,CPU&#x4FE1;&#x606F;</a></li>
 <li><a href="http://www.cnblogs.com/cute/archive/2011/04/20/2022280.html" target="_blank" rel="external">&#x6DF1;&#x5165;&#x7406;&#x89E3;linux&#x7CFB;&#x7EDF;&#x4E0B;proc&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x5185;&#x5BB9;</a></li>
 <li><a href="http://blog.csdn.net/dba_waterbin/article/details/8644626" target="_blank" rel="external">Linux&#x4E0B;&#x533A;&#x5206;&#x7269;&#x7406;CPU&#x3001;&#x903B;&#x8F91;CPU&#x548C;CPU&#x6838;&#x6570;</a></li>
@@ -71,8 +69,7 @@
     
     <summary type="html">
     
-      &lt;blockquote&gt;
-&lt;p&gt;&amp;#x5E38;&amp;#x7528;&amp;#x57FA;&amp;#x672C;&amp;#x547D;&amp;#x4EE4;&amp;#x6C47;&amp;#x96C6;&amp;#x6574;&amp;#x7406;,&amp;#x6301;&amp;#x7EED;&amp;#x66F4;&amp;#x65B0;&amp;#x3002;&lt;/p
+      &lt;p&gt;&amp;#x5E38;&amp;#x7528;&amp;#x57FA;&amp;#x672C;&amp;#x547D;&amp;#x4EE4;&amp;#x6C47;&amp;#x96C6;&amp;#x6574;&amp;#x7406;,&amp;#x6301;&amp;#x7EED;&amp;#x66F4;&amp;#x65B0;&amp;#x3002;&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
