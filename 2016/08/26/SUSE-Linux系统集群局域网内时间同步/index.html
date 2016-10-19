@@ -1,4 +1,309 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="技术博客"><title>SUSE Linux系统集群局域网内时间同步 | HSG's Blog</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/4.2.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.3"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">SUSE Linux系统集群局域网内时间同步</h1><a id="logo" href="/.">HSG's Blog</a><p class="description">没有行动的思考是在浪费生命</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 主页</i></a><a href="/archives/"><i class="fa fa-archive"> 分类</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/timeline/"><i class="fa fa-globe"> 时间线</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">SUSE Linux系统集群局域网内时间同步</h1><div class="post-meta">Aug 26, 2016<span> | </span><span class="category"><a href="/categories/Linux/">Linux</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><a data-thread-key="2016/08/26/SUSE-Linux系统集群局域网内时间同步/" href="/2016/08/26/SUSE-Linux系统集群局域网内时间同步/#comments" class="ds-thread-count"></a><div class="clear"><div id="toc" class="toc-article"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#NTP简介"><span class="toc-number">1.</span> <span class="toc-text">NTP简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验环境"><span class="toc-number">2.</span> <span class="toc-text">实验环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器搭建步骤"><span class="toc-number">3.</span> <span class="toc-text">服务器搭建步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看NTP运行状态命令"><span class="toc-number">4.</span> <span class="toc-text">查看NTP运行状态命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间同步误差"><span class="toc-number">5.</span> <span class="toc-text">时间同步误差</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接："><span class="toc-number">6.</span> <span class="toc-text">参考链接：</span></a></li></ol></div></div><div class="post-content"><p>&#x2003;&#x2003;&#x9700;&#x6C42;&#x662F;&#x8FD9;&#x4E48;&#x6765;&#x7684;&#xFF0C;&#x535A;&#x4E3B;&#x5DF2;&#x7ECF;&#x642D;&#x5EFA;&#x4E86;<a href="http://storm.apache.org/" target="_blank" rel="external">Storm</a>&#x96C6;&#x7FA4;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x57FA;&#x4E8E;&#x8BE5;&#x96C6;&#x7FA4;&#x7684;&#x534F;&#x540C;&#x8FC7;&#x6EE4;&#x7B97;&#x6CD5;&#x7684;&#x6027;&#x80FD;&#x6D4B;&#x8BD5;&#x3002;&#x4F46;&#x662F;&#x8981;&#x6C42;&#x7CBE;&#x5EA6;&#x5728;&#x6BEB;&#x79D2;&#xFF08;ms&#xFF09;&#x7EA7;&#x522B;&#x3002;&#x8BE5;&#x96C6;&#x7FA4;&#x5C5E;&#x4E8E;&#x540C;&#x4E00;&#x5C40;&#x57DF;&#x7F51;&#xFF0C;&#x5171;&#x6709;40&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x5982;&#x679C;&#x7528; date &#x547D;&#x4EE4;&#xFF0C;&#x5219;&#x5728;&#x65F6;&#x95F4;&#x540C;&#x6B65;&#x7684;&#x7CBE;&#x5EA6;&#x4EE5;&#x53CA;&#x6548;&#x7387;&#x4E0A;&#x90FD;&#x4E0D;&#x53EF;&#x884C;&#x3002;&#x6240;&#x4EE5;&#xFF0C;&#x535A;&#x4E3B;&#x901A;&#x8FC7;&#x8C03;&#x7814;&#xFF0C;&#x51C6;&#x5907;&#x5728;&#x8BE5;&#x96C6;&#x7FA4;&#x4E0A;&#x642D;&#x5EFA; NTP &#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4EE5;&#x6EE1;&#x8DB3;&#x5B9E;&#x9A8C;&#x9700;&#x6C42;&#x3002;<br><a id="more"></a></p>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="HSG's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x2003;&amp;#x2003;&amp;#x9700;&amp;#x6C42;&amp;#x662F;&amp;#x8FD9;&amp;#x4E48;&amp;#x6765;&amp;#x7684;&amp;#xFF0C;&amp;#x535A;&amp;#x4E3B;&amp;#x5DF2;&amp;#x7ECF;&amp;#x642D;&amp;#x5EFA;&amp;#x4E86;Storm&amp;#x96C6;&amp;#x7FA4;&amp;#xFF0C;&amp;#x63A5;&amp;#x4E0B;&amp;#x6765;&amp;#x9700;&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SUSE Linux系统集群局域网内时间同步">
+<meta property="og:url" content="http://hsgspace.com/2016/08/26/SUSE-Linux系统集群局域网内时间同步/index.html">
+<meta property="og:site_name" content="HSG's Blog">
+<meta property="og:description" content="&amp;#x2003;&amp;#x2003;&amp;#x9700;&amp;#x6C42;&amp;#x662F;&amp;#x8FD9;&amp;#x4E48;&amp;#x6765;&amp;#x7684;&amp;#xFF0C;&amp;#x535A;&amp;#x4E3B;&amp;#x5DF2;&amp;#x7ECF;&amp;#x642D;&amp;#x5EFA;&amp;#x4E86;Storm&amp;#x96C6;&amp;#x7FA4;&amp;#xFF0C;&amp;#x63A5;&amp;#x4E0B;&amp;#x6765;&amp;#x9700;&amp;#x">
+<meta property="og:image" content="http://hsgspace.com/2016/08/26/SUSE-Linux系统集群局域网内时间同步/1.jpg">
+<meta property="og:image" content="http://hsgspace.com/2016/08/26/SUSE-Linux系统集群局域网内时间同步/2.jpg">
+<meta property="og:updated_time" content="2016-09-26T09:25:49.843Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SUSE Linux系统集群局域网内时间同步">
+<meta name="twitter:description" content="&amp;#x2003;&amp;#x2003;&amp;#x9700;&amp;#x6C42;&amp;#x662F;&amp;#x8FD9;&amp;#x4E48;&amp;#x6765;&amp;#x7684;&amp;#xFF0C;&amp;#x535A;&amp;#x4E3B;&amp;#x5DF2;&amp;#x7ECF;&amp;#x642D;&amp;#x5EFA;&amp;#x4E86;Storm&amp;#x96C6;&amp;#x7FA4;&amp;#xFF0C;&amp;#x63A5;&amp;#x4E0B;&amp;#x6765;&amp;#x9700;&amp;#x">
+<meta name="twitter:image" content="http://hsgspace.com/2016/08/26/SUSE-Linux系统集群局域网内时间同步/1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://hsgspace.com/2016/08/26/SUSE-Linux系统集群局域网内时间同步/"/>
+
+
+  <title> SUSE Linux系统集群局域网内时间同步 | HSG's Blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">HSG's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">没有行动的思考是在浪费生命</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                SUSE Linux系统集群局域网内时间同步
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-08-26T21:31:23+08:00" content="2016-08-26">
+              2016-08-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x2003;&#x2003;&#x9700;&#x6C42;&#x662F;&#x8FD9;&#x4E48;&#x6765;&#x7684;&#xFF0C;&#x535A;&#x4E3B;&#x5DF2;&#x7ECF;&#x642D;&#x5EFA;&#x4E86;<a href="http://storm.apache.org/" target="_blank" rel="external">Storm</a>&#x96C6;&#x7FA4;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x57FA;&#x4E8E;&#x8BE5;&#x96C6;&#x7FA4;&#x7684;&#x534F;&#x540C;&#x8FC7;&#x6EE4;&#x7B97;&#x6CD5;&#x7684;&#x6027;&#x80FD;&#x6D4B;&#x8BD5;&#x3002;&#x4F46;&#x662F;&#x8981;&#x6C42;&#x7CBE;&#x5EA6;&#x5728;&#x6BEB;&#x79D2;&#xFF08;ms&#xFF09;&#x7EA7;&#x522B;&#x3002;&#x8BE5;&#x96C6;&#x7FA4;&#x5C5E;&#x4E8E;&#x540C;&#x4E00;&#x5C40;&#x57DF;&#x7F51;&#xFF0C;&#x5171;&#x6709;40&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x5982;&#x679C;&#x7528; date &#x547D;&#x4EE4;&#xFF0C;&#x5219;&#x5728;&#x65F6;&#x95F4;&#x540C;&#x6B65;&#x7684;&#x7CBE;&#x5EA6;&#x4EE5;&#x53CA;&#x6548;&#x7387;&#x4E0A;&#x90FD;&#x4E0D;&#x53EF;&#x884C;&#x3002;&#x6240;&#x4EE5;&#xFF0C;&#x535A;&#x4E3B;&#x901A;&#x8FC7;&#x8C03;&#x7814;&#xFF0C;&#x51C6;&#x5907;&#x5728;&#x8BE5;&#x96C6;&#x7FA4;&#x4E0A;&#x642D;&#x5EFA; NTP &#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4EE5;&#x6EE1;&#x8DB3;&#x5B9E;&#x9A8C;&#x9700;&#x6C42;&#x3002;<br><a id="more"></a></p>
 <h2 id="NTP&#x7B80;&#x4ECB;"><a href="#NTP&#x7B80;&#x4ECB;" class="headerlink" title="NTP&#x7B80;&#x4ECB;"></a>NTP&#x7B80;&#x4ECB;</h2><p>&#x2003;&#x2003;&#x7B80;&#x5355;&#x7684;&#x8BF4;&#x5C31;&#x662F;&#x9009;&#x62E9;&#x51E0;&#x90E8;&#x4E3B;&#x8981;&#x4E3B;&#x673A; (Primary server) &#x8C03;&#x6821;&#x65F6;&#x95F4;&#xFF0C;&#x8BA9;&#x8FD9;&#x4E9B; Primary Servers &#x7684;&#x65F6;&#x95F4;&#x540C;&#x6B65;&#x4E4B;&#x540E;&#xFF0C;&#x518D;&#x5F00;&#x653E;&#x7F51;&#x7EDC;&#x670D;&#x52A1;&#x6765;&#x8BA9; Client &#x7AEF;&#x8054;&#x673A;&#xFF0C;&#x6700;&#x540E;&#x4F7F;Client &#x7AEF;&#x8C03;&#x6574;&#x81EA;&#x5DF1;&#x7684;&#x65F6;&#x95F4;&#x3002;NTP&#xFF08;Network Time Protocol&#xFF09;&#x5C31;&#x662F;&#x5B9E;&#x73B0;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x7684;&#x4E00;&#x4E2A;&#x7F51;&#x7EDC;&#x65F6;&#x95F4;&#x534F;&#x8BAE;&#x3002;&#x5B83;&#x662F;&#x4E00;&#x4E2A;&#x8DE8;&#x8D8A;&#x5E7F;&#x57DF;&#x7F51;&#x6216;&#x5C40;&#x57DF;&#x7F51;&#x7684;&#x590D;&#x6742;&#x7684;&#x540C;&#x6B65;&#x65F6;&#x95F4;&#x534F;&#x8BAE;&#xFF0C;&#x53EF;&#x4F7F;&#x5F97;&#x673A;&#x5668;&#x83B7;&#x5F97;&#x6BEB;&#x79D2;&#x7EA7;&#x7684;&#x7CBE;&#x5EA6;&#x3002;NTP&#x534F;&#x8BAE;&#x662F;OSI&#x53C2;&#x8003;&#x6A21;&#x578B;&#x7684;&#x9AD8;&#x5C42;&#x534F;&#x8BAE;&#xFF0C;&#x7B26;&#x5408;UDP&#x4F20;&#x8F93;&#x534F;&#x8BAE;&#x683C;&#x5F0F;&#xFF0C;&#x62E5;&#x6709;&#x4E13;&#x7528;&#x7AEF;&#x53E3;&#xFF08;Port&#xFF09;123&#x3002;&#x968F;&#x7740;&#x65F6;&#x95F4;&#x7684;&#x63A8;&#x79FB;&#xFF0C;&#x8BA1;&#x7B97;&#x673A;&#x7684;&#x65F6;&#x949F;&#xFF08;&#x786C;&#x4EF6;&#x65F6;&#x949F;&#xFF09;&#x4F1A;&#x503E;&#x5411;&#x4E8E;&#x6F02;&#x79FB;&#x3002;&#x7F51;&#x7EDC;&#x65F6;&#x95F4;&#x534F;&#x8BAE;&#xFF08;NTP&#xFF09;&#x5373;&#x53EF;&#x4E3A;&#x8DEF;&#x7531;&#x5668;&#x3001;&#x4EA4;&#x6362;&#x673A;&#x3001;&#x5DE5;&#x4F5C;&#x7AD9;&#x548C;&#x670D;&#x52A1;&#x5668;&#x4E4B;&#x95F4;&#x63D0;&#x4F9B;&#x4E00;&#x79CD;&#x65F6;&#x95F4;&#x540C;&#x6B65;&#x7684;&#x673A;&#x5236;&#x3002;<br>&#x2003;&#x2003;&#x8BE6;&#x60C5;&#xFF1A;<a href="http://www.ntp.org/" target="_blank" rel="external">&#x5B98;&#x7F51;&#x94FE;&#x63A5;</a></p>
 <h2 id="&#x5B9E;&#x9A8C;&#x73AF;&#x5883;"><a href="#&#x5B9E;&#x9A8C;&#x73AF;&#x5883;" class="headerlink" title="&#x5B9E;&#x9A8C;&#x73AF;&#x5883;"></a>&#x5B9E;&#x9A8C;&#x73AF;&#x5883;</h2><p>&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#xFF1A;SUSE Linux Enterprise Server 11 (x86_64)<br>NTP&#x7248;&#x672C;&#xFF1A;ntpq 4.2.4p8@1.1612-o Sat May  8 09:39:49 UTC 2010 (1) &#xFF08;&#x7CFB;&#x7EDF;&#x81EA;&#x5E26;&#xFF0C;&#x4E5F;&#x53EF;&#x81EA;&#x884C;&#x4E0B;&#x8F7D;&#x5B89;&#x88C5;&#xFF09;<br>&#x5C40;&#x57DF;&#x7F51;&#x65F6;&#x95F4;&#x670D;&#x52A1;&#x5668;IP&#xFF1A;172.18.65.1<br>&#x5BA2;&#x6237;&#x7AEF;&#x540C;&#x6B65;&#x673A;&#x5668;IP&#xFF1A;172.18.65.2~172.18.65.41 &#xFF08;40&#x53F0;&#xFF09;</p>
 <h2 id="&#x670D;&#x52A1;&#x5668;&#x642D;&#x5EFA;&#x6B65;&#x9AA4;"><a href="#&#x670D;&#x52A1;&#x5668;&#x642D;&#x5EFA;&#x6B65;&#x9AA4;" class="headerlink" title="&#x670D;&#x52A1;&#x5668;&#x642D;&#x5EFA;&#x6B65;&#x9AA4;"></a>&#x670D;&#x52A1;&#x5668;&#x642D;&#x5EFA;&#x6B65;&#x9AA4;</h2><p>1.&#x9009;&#x62E9;&#x5C40;&#x57DF;&#x7F51;&#x5185;&#x4E00;&#x4E2A;&#x673A;&#x5668;&#x4F5C;&#x4E3A;&#x65F6;&#x95F4;&#x540C;&#x6B65;&#x670D;&#x52A1;&#x5668;&#xFF08;172.18.65.1&#xFF09;<br>2.&#x4FEE;&#x6539;&#x670D;&#x52A1;&#x5668;&#x7AEF;NTP&#x7684;&#x4E3B;&#x8981;&#x914D;&#x7F6E;&#x6587;&#x4EF6;ntp.conf(&#x9ED8;&#x8BA4;&#x8DEF;&#x5F84;&#x4E3A;&#xFF1A;/etc/ntp.conf)<br><code>ntp.conf</code>&#x7684;&#x57FA;&#x672C;&#x4FE1;&#x606F;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">server <span class="number">127.127</span><span class="number">.1</span><span class="number">.0</span>              # local clock (LCL)</div><div class="line">fudge  <span class="number">127.127</span><span class="number">.1</span><span class="number">.0</span> stratum <span class="number">10</span>   # LCL is unsynchronized</div><div class="line"><span class="meta">##</span></div><div class="line"><span class="meta">## Add external Servers using</span></div><div class="line"><span class="meta">## # rcntp addserver &lt;yourserver&gt;</span></div><div class="line"><span class="meta">##</span></div><div class="line"><span class="meta">##</span></div><div class="line"><span class="meta">## Miscellaneous stuff</span></div><div class="line"><span class="meta">##</span></div><div class="line">driftfile /<span class="keyword">var</span>/lib/ntp/drift/ntp.drift # path <span class="keyword">for</span> drift file</div><div class="line">logfile   /<span class="keyword">var</span>/log/ntp          # alternate log file</div><div class="line"><span class="meta"># logconfig =syncstatus + sysevents</span></div><div class="line"><span class="meta"># logconfig =all</span></div><div class="line"><span class="meta"># statsdir /tmp/                # directory for statistics files</span></div><div class="line"><span class="meta"># filegen peerstats  file peerstats  type day enable</span></div><div class="line"><span class="meta"># filegen loopstats  file loopstats  type day enable</span></div><div class="line"><span class="meta"># filegen clockstats file clockstats type day enable</span></div><div class="line"><span class="meta">#</span></div><div class="line"><span class="meta"># Authentication stuff</span></div><div class="line"><span class="meta">#</span></div><div class="line">keys /etc/ntp.keys              # path <span class="keyword">for</span> keys file</div><div class="line">trustedkey <span class="number">1</span>                    # define trusted keys</div><div class="line">requestkey <span class="number">1</span>                    # key (<span class="number">7</span>) <span class="keyword">for</span> accessing server variables</div><div class="line"><span class="meta"># controlkey 15                 # key (6) for accessing server variables</span></div></pre></td></tr></table></figure></p>
@@ -23,13 +328,296 @@
 <blockquote>
 <p>&#x8F6C;&#x8F7D;&#x8BF7;&#x6CE8;&#x660E;&#x51FA;&#x5904;:<a href="http://hsgspace.com" target="_blank" rel="external">HSG&#x2019;s Blog</a></p>
 </blockquote>
-</div><script type="text/javascript" src="/js/share.js?v=0.0.3" async></script><a data-url="http://hsgspace.com/2016/08/26/SUSE-Linux系统集群局域网内时间同步/" data-id="cisbv71wo0000f0pbfwos8ivs" class="article-share-link">分享到</a><div class="tags"><a href="/tags/linux/">linux</a></div><div class="post-nav"><a href="/2016/10/18/Linux 常用命令整理/" class="pre">Linux 常用命令整理</a></div><div data-thread-key="2016/08/26/SUSE-Linux系统集群局域网内时间同步/" data-title="SUSE Linux系统集群局域网内时间同步" data-url="http://hsgspace.com/2016/08/26/SUSE-Linux系统集群局域网内时间同步/" data-author-key="1" class="ds-thread"></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://hsgspace.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/10/18/Linux 常用命令整理/">Linux 常用命令整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/26/SUSE-Linux系统集群局域网内时间同步/">SUSE Linux系统集群局域网内时间同步</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/linux/" style="font-size: 15px;">linux</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://blogwall.us/" title="程序员博客墙" target="_blank">程序员博客墙</a><ul></ul><a href="http://www.lyspace.net/" title="Liu Yan" target="_blank">Liu Yan</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">HSG's Blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme. </a> 2016.08</div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.3" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.3" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.3"><script>var duoshuoQuery = {short_name:'huangsg'};
-(function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0]
-        || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.3"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.3"></script></div></body></html>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/18/Linux 常用命令整理/" rel="prev" title="Linux 常用命令整理">
+                Linux 常用命令整理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="huangsg" />
+          <p class="site-author-name" itemprop="name">huangsg</p>
+          <p class="site-description motion-element" itemprop="description">技术博客</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">categories</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NTP简介"><span class="nav-number">1.</span> <span class="nav-text">NTP简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验环境"><span class="nav-number">2.</span> <span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器搭建步骤"><span class="nav-number">3.</span> <span class="nav-text">服务器搭建步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看NTP运行状态命令"><span class="nav-number">4.</span> <span class="nav-text">查看NTP运行状态命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间同步误差"><span class="nav-number">5.</span> <span class="nav-text">时间同步误差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接："><span class="nav-number">6.</span> <span class="nav-text">参考链接：</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">huangsg</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
