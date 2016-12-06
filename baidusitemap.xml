@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://hsgspace.com/2016/12/06/CentOS%207%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85CUDA%E3%80%81CuDNN%E3%80%81TensorFlow/</loc>
-    <lastmod>2016-12-06T08:44:34.924Z</lastmod>
+    <lastmod>2016-12-06T08:46:45.862Z</lastmod>
     <data>
         <display>
         <title>CentOS 7服务器安装CUDA、CuDNN、TensorFlow</title>
@@ -17,6 +17,9 @@
            
              
               <breadCrumb title="Linux" url="http://hsgspace.com/categories/Linux/"/>
+          
+             
+              <breadCrumb title="Deep Learning" url="http://hsgspace.com/categories/Linux/Deep-Learning/"/>
           
         </display>
     </data>
