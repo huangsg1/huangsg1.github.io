@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://hsgspace.com/"/>
-  <updated>2016-10-18T08:04:33.995Z</updated>
+  <updated>2016-12-06T08:44:34.924Z</updated>
   <id>http://hsgspace.com/</id>
   
   <author>
@@ -14,6 +14,84 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CentOS 7服务器安装CUDA、CuDNN、TensorFlow</title>
+    <link href="http://hsgspace.com/2016/12/06/CentOS%207%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85CUDA%E3%80%81CuDNN%E3%80%81TensorFlow/"/>
+    <id>http://hsgspace.com/2016/12/06/CentOS 7服务器安装CUDA、CuDNN、TensorFlow/</id>
+    <published>2016-12-06T08:31:23.000Z</published>
+    <updated>2016-12-06T08:44:34.924Z</updated>
+    
+    <content type="html"><![CDATA[<p>CentOS 7&#x670D;&#x52A1;&#x5668;&#x4E0B;&#x914D;&#x7F6E;&#x5B89;&#x88C5;CUDA&#x3001;CuDNN&#x3001;TensorFlow&#x73AF;&#x5883;&#x7684;&#x65B9;&#x6CD5;&#x8BF4;&#x660E;&#x3002;<br><a id="more"></a></p>
+<h2 id="&#x7248;&#x672C;&#x8BF4;&#x660E;-&#x9644;&#x4E0B;&#x8F7D;&#x94FE;&#x63A5;"><a href="#&#x7248;&#x672C;&#x8BF4;&#x660E;-&#x9644;&#x4E0B;&#x8F7D;&#x94FE;&#x63A5;" class="headerlink" title="&#x7248;&#x672C;&#x8BF4;&#x660E;(&#x9644;&#x4E0B;&#x8F7D;&#x94FE;&#x63A5;)"></a>&#x7248;&#x672C;&#x8BF4;&#x660E;(&#x9644;&#x4E0B;&#x8F7D;&#x94FE;&#x63A5;)</h2><ul>
+<li>Centos 7 x64<ul>
+<li>Linux version 3.10.0-327.36.3.el7.x86_64 </li>
+</ul>
+</li>
+<li><a href="https://developer.nvidia.com/cuda-downloads" target="_blank" rel="external">CUDA 8.0</a></li>
+<li><a href="https://developer.nvidia.com/cudnn" target="_blank" rel="external">CuDNN 5.1</a> &#x4E0B;&#x8F7D;&#x9700;&#x8981;&#x6CE8;&#x518C;</li>
+<li><a href="https://www.tensorflow.org/versions/r0.12/get_started/os_setup.html#pip-installation" target="_blank" rel="external">TensorFlow 0.12</a></li>
+</ul>
+<h2 id="CUDA-8-0-&#x5B89;&#x88C5;"><a href="#CUDA-8-0-&#x5B89;&#x88C5;" class="headerlink" title="CUDA 8.0 &#x5B89;&#x88C5;"></a>CUDA 8.0 &#x5B89;&#x88C5;</h2><h3 id="&#x5B89;&#x88C5;&#x524D;&#x63D0;"><a href="#&#x5B89;&#x88C5;&#x524D;&#x63D0;" class="headerlink" title="&#x5B89;&#x88C5;&#x524D;&#x63D0;"></a>&#x5B89;&#x88C5;&#x524D;&#x63D0;</h3><h4 id="Verify-You-Have-a-CUDA-Capable-GPU"><a href="#Verify-You-Have-a-CUDA-Capable-GPU" class="headerlink" title="Verify You Have a CUDA-Capable GPU"></a>Verify You Have a CUDA-Capable GPU</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#&#x786E;&#x4FDD;&#x670D;&#x52A1;&#x5668;&#x5B89;&#x88C5;&#x4E86;CUDA&#x652F;&#x6301;&#x7684;GPU</span></div><div class="line">$ lspci | grep -i vga</div><div class="line">04:00.0 VGA compatible controller: NVIDIA Corporation Device 1b00 (rev a1)</div><div class="line">09:00.0 VGA compatible controller: Matrox Electronics Systems Ltd. G200eR2 (rev 01)</div><div class="line">83:00.0 VGA compatible controller: NVIDIA Corporation Device 1b00 (rev a1)</div></pre></td></tr></table></figure>
+<p>&#x6211;&#x7684;&#x670D;&#x52A1;&#x5668;&#x5B89;&#x88C5;&#x4E86;&#x4E24;&#x5757;NVidia Titan X, &#x662F;&#x7B26;&#x5408;&#x8981;&#x6C42;&#x7684;&#x3002;</p>
+<h4 id="Verify-You-Have-a-Supported-Version-of-Linux"><a href="#Verify-You-Have-a-Supported-Version-of-Linux" class="headerlink" title="Verify You Have a Supported Version of Linux"></a>Verify You Have a Supported Version of Linux</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#&#x786E;&#x4FDD;&#x7CFB;&#x7EDF;&#x652F;&#x6301;</span></div><div class="line">$ uname -m &amp;&amp; cat /etc/*release</div><div class="line">x86_64</div><div class="line">CentOS Linux release 7.2.1511 (Core)</div></pre></td></tr></table></figure>
+<p>CentOS 7 64-bit</p>
+<h4 id="Verify-the-System-Has-gcc-Installed"><a href="#Verify-the-System-Has-gcc-Installed" class="headerlink" title="Verify the System Has gcc Installed"></a>Verify the System Has gcc Installed</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ gcc --version</div><div class="line">gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-4)</div></pre></td></tr></table></figure>
+<p>&#x5982;&#x679C;&#x672A;&#x5B89;&#x88C5;&#xFF0C;&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x5B89;&#x88C5;:<br><code>yum install gcc gcc-c++</code></p>
+<h4 id="Verify-the-System-has-the-Correct-Kernel-Headers-and-Development-Packages-Installed"><a href="#Verify-the-System-has-the-Correct-Kernel-Headers-and-Development-Packages-Installed" class="headerlink" title="Verify the System has the Correct Kernel Headers and Development Packages Installed"></a>Verify the System has the Correct Kernel Headers and Development Packages Installed</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># the needed version of the kernel headers and development packages </span></div><div class="line">$ uname -r</div><div class="line">3.10.0-327.36.3.el7.x86_64</div><div class="line"><span class="comment"># &#x5B89;&#x88C5;</span></div><div class="line">$ sudo yum install kernel-devel-$(uname -r) kernel-headers-$(uname -r)</div></pre></td></tr></table></figure>
+<h3 id="&#x5B89;&#x88C5;&#x8FC7;&#x7A0B;"><a href="#&#x5B89;&#x88C5;&#x8FC7;&#x7A0B;" class="headerlink" title="&#x5B89;&#x88C5;&#x8FC7;&#x7A0B;"></a>&#x5B89;&#x88C5;&#x8FC7;&#x7A0B;</h3><ul>
+<li>&#x4E0B;&#x8F7D;<a href="https://developer.nvidia.com/cuda-downloads" target="_blank" rel="external">CUDA 8.0</a>&#xFF08;&#x4E0E;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7248;&#x672C;&#x5BF9;&#x5E94;&#xFF09;</li>
+<li><code>rpm -i cuda-repo-rhel7-8-0-local-8.0.44-1.x86_64.rpm</code></li>
+<li><code>yum clean all</code></li>
+<li><code>yum install cuda</code></li>
+<li><code>reboot</code></li>
+</ul>
+<p>&#x7CFB;&#x7EDF;&#x91CD;&#x542F;&#x4E4B;&#x540E;&#x624D;&#x80FD;&#x5B89;&#x88C5;&#x597D;CUDA&#x7684;&#x9A71;&#x52A8;&#xFF0C;&#x901A;&#x8FC7;&#x4EE5;&#x4E0B;&#x65B9;&#x5F0F;&#x67E5;&#x770B;&#xFF1A;<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cat /proc/driver/nvidia/version </div><div class="line">NVRM version: NVIDIA UNIX x86_64 Kernel Module  367.48  Sat Sep  3 18:21:08 PDT 2016</div><div class="line">GCC version:  gcc version 4.8.5 20150623 (Red Hat 4.8.5-4) (GCC)</div></pre></td></tr></table></figure></p>
+<h3 id="&#x914D;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF;"><a href="#&#x914D;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF;" class="headerlink" title="&#x914D;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF;"></a>&#x914D;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF;</h3><p>&#x5728;<code>/etc/profile</code>&#x91CC;&#x6DFB;&#x52A0;&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;&#xFF1A;<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#cuda</span></div><div class="line">export PATH=<span class="regexp">/usr/local</span><span class="regexp">/cuda-8.0/bin</span><span class="symbol">:</span><span class="variable">$PATH</span></div><div class="line">export LD_LIBRARY_PATH=<span class="regexp">/usr/local</span><span class="regexp">/cuda-8.0/lib</span>64<span class="symbol">:/usr/local/cuda-</span><span class="number">8.0</span>/extras/CUPTI/<span class="symbol">lib64:</span><span class="variable">$LD_LIBRARY_PATH</span></div></pre></td></tr></table></figure></p>
+<h3 id="&#x9A8C;&#x8BC1;&#x5B89;&#x88C5;&#x6210;&#x529F;"><a href="#&#x9A8C;&#x8BC1;&#x5B89;&#x88C5;&#x6210;&#x529F;" class="headerlink" title="&#x9A8C;&#x8BC1;&#x5B89;&#x88C5;&#x6210;&#x529F;"></a>&#x9A8C;&#x8BC1;&#x5B89;&#x88C5;&#x6210;&#x529F;</h3><ul>
+<li>&#x4EFB;&#x610F;&#x76EE;&#x5F55;&#x4E0B;&#x521B;&#x5EFA;test&#x6587;&#x4EF6;&#x5939;</li>
+<li><code>cuda-install-samples-8.0.sh test</code></li>
+<li>&#x8FDB;&#x5165;test&#x6587;&#x4EF6;&#x5939;&#x4E2D;&#x7684;<code>NVIDIA_CUDA-8.0_Samples/1_Utilities/deviceQuery</code></li>
+<li><code>make</code></li>
+<li><code>./deviceQuery</code></li>
+<li>&#x663E;&#x793A;&#x4EE5;&#x4E0B;&#x4FE1;&#x606F;&#xFF1A;<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">./deviceQuery Starting...</div><div class="line"></div><div class="line"> CUDA Device <span class="keyword">Query</span> (Runtime API) <span class="keyword">version</span> (CUDART static linking)</div><div class="line"></div><div class="line">Detected 2 CUDA Capable device(s)</div><div class="line"></div><div class="line">Device 0: <span class="string">&quot;TITAN X (Pascal)&quot;</span></div><div class="line">  CUDA Driver <span class="keyword">Version</span> / Runtime <span class="keyword">Version</span>          8.0 / 8.0</div><div class="line">  CUDA Capability Major/Minor <span class="keyword">version</span> number:    6.1</div><div class="line">  <span class="keyword">Total</span> amount of <span class="keyword">global</span> <span class="keyword">memory</span>:                 12189 MBytes (12781551616 bytes)</div><div class="line">  (28) Multiprocessors, (128) CUDA Cores/MP:     3584 CUDA Cores</div><div class="line">  GPU Max Clock rate:                            1531 MHz (1.53 GHz)</div><div class="line">  <span class="keyword">Memory</span> Clock rate:                             5005 Mhz</div><div class="line">  <span class="keyword">Memory</span> Bus Width:                              384-bit</div><div class="line">...</div><div class="line">...</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="CuDNN-5-1&#x5B89;&#x88C5;"><a href="#CuDNN-5-1&#x5B89;&#x88C5;" class="headerlink" title="CuDNN 5.1&#x5B89;&#x88C5;"></a>CuDNN 5.1&#x5B89;&#x88C5;</h2><blockquote>
+<p><a href="https://developer.nvidia.com/cuDNN" target="_blank" rel="external">CuDNN</a>&#x662F;&#x4E13;&#x95E8;&#x9488;&#x5BF9;&#x6DF1;&#x5EA6;&#x6846;&#x67B6;&#x8BBE;&#x8BA1;&#x7684;&#x4E00;&#x5957;GPU&#x8BA1;&#x7B97;&#x52A0;&#x901F;&#x65B9;&#x6848;&#xFF0C;&#x652F;&#x6301;&#x7684;&#x6846;&#x67B6;&#x5305;&#x62EC; Caffe, TensorFlow, Theano, Torch, &#x548C; CNTK&#x3002;</p>
+<h3 id="&#x5B89;&#x88C5;"><a href="#&#x5B89;&#x88C5;" class="headerlink" title="&#x5B89;&#x88C5;"></a>&#x5B89;&#x88C5;</h3><ul>
+<li>&#x4E0B;&#x8F7D;&#x540E;&#x6267;&#x884C;&#x5982;&#x4E0B;&#x547D;&#x4EE4;&#x5B8C;&#x6210;&#x5B89;&#x88C5;&#xFF1A;</li>
+</ul>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tar xvzf cudnn-8.0-linux-x64-v5.1-ga.tgz</div><div class="line">cp -P cuda/include/cudnn.h /usr/<span class="built_in">local</span>/cuda-8.0/include</div><div class="line">cp -P cuda/lib64/libcudnn* /usr/<span class="built_in">local</span>/cuda-8.0/lib64</div><div class="line">chmod a+r /usr/<span class="built_in">local</span>/cuda-8.0/include/cudnn.h /usr/<span class="built_in">local</span>/cuda-8.0/lib64/libcudnn*</div></pre></td></tr></table></figure>
+<h2 id="TensorFlow-r0-12&#x5B89;&#x88C5;"><a href="#TensorFlow-r0-12&#x5B89;&#x88C5;" class="headerlink" title="TensorFlow r0.12&#x5B89;&#x88C5;"></a>TensorFlow r0.12&#x5B89;&#x88C5;</h2><blockquote>
+<p>TensorFlow&#x6709;&#x591A;&#x79CD;&#x5B89;&#x88C5;&#x65B9;&#x5F0F;&#xFF0C;&#x6B64;&#x5904;&#x4ECB;&#x7ECD;pip&#x5B89;&#x88C5;&#x65B9;&#x5F0F;</p>
+<h3 id="&#x5B89;&#x88C5;-1"><a href="#&#x5B89;&#x88C5;-1" class="headerlink" title="&#x5B89;&#x88C5;"></a>&#x5B89;&#x88C5;</h3><ul>
+<li>&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x5B8C;&#x6210;&#x5B89;&#x88C5;</li>
+</ul>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ yum -y install python-pip python-devel</div><div class="line"><span class="comment"># Ubuntu/Linux 64-bit, GPU enabled, Python 2.7</span></div><div class="line"><span class="comment"># Requires CUDA toolkit 8.0 and CuDNN v5. For other versions, see &quot;Installing from sources&quot; below.</span></div><div class="line">$ <span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.0rc0-cp27-none-linux_x86_64.whl</div><div class="line">$ pip install --upgrade <span class="variable">$TF_BINARY_URL</span></div></pre></td></tr></table></figure>
+<h3 id="&#x9A8C;&#x8BC1;&#x5B89;&#x88C5;&#x662F;&#x5426;&#x6210;&#x529F;"><a href="#&#x9A8C;&#x8BC1;&#x5B89;&#x88C5;&#x662F;&#x5426;&#x6210;&#x529F;" class="headerlink" title="&#x9A8C;&#x8BC1;&#x5B89;&#x88C5;&#x662F;&#x5426;&#x6210;&#x529F;"></a>&#x9A8C;&#x8BC1;&#x5B89;&#x88C5;&#x662F;&#x5426;&#x6210;&#x529F;</h3><ul>
+<li>&#x6839;&#x636E;&#x5B98;&#x7F51;&#x63D0;&#x4F9B;&#x7684;&#x6559;&#x7A0B;&#x6267;&#x884C;&#x9A8C;&#x8BC1;&#x5373;&#x53EF;</li>
+<li><a href="https://www.tensorflow.org/versions/r0.12/get_started/os_setup.html#test-the-tensorflow-installation" target="_blank" rel="external">&#x6559;&#x7A0B;&#x94FE;&#x63A5;</a><h2 id="&#x53C2;&#x8003;&#x94FE;&#x63A5;"><a href="#&#x53C2;&#x8003;&#x94FE;&#x63A5;" class="headerlink" title="&#x53C2;&#x8003;&#x94FE;&#x63A5;"></a>&#x53C2;&#x8003;&#x94FE;&#x63A5;</h2></li>
+<li><a href="http://www.nvidia.com/object/gpu-accelerated-applications-tensorflow-installation.html" target="_blank" rel="external">Nvidia&#x5B98;&#x7F51;&#x53C2;&#x8003;</a></li>
+<li><a href="https://www.tensorflow.org/versions/r0.12/get_started/os_setup.html#optional-install-cuda-gpus-on-linux" target="_blank" rel="external">TensorFlow&#x5B98;&#x7F51;&#x8BF4;&#x660E;</a></li>
+<li><a href="http://www.cnblogs.com/platero/p/4118139.html" target="_blank" rel="external">NVIDIA CuDNN &#x5B89;&#x88C5;&#x8BF4;&#x660E;</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;CentOS 7&amp;#x670D;&amp;#x52A1;&amp;#x5668;&amp;#x4E0B;&amp;#x914D;&amp;#x7F6E;&amp;#x5B89;&amp;#x88C5;CUDA&amp;#x3001;CuDNN&amp;#x3001;TensorFlow&amp;#x73AF;&amp;#x5883;&amp;#x7684;&amp;#x65B9;&amp;#x6CD5;&amp;#x8BF4;&amp;#x660E;&amp;#x3002;&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://hsgspace.com/categories/Linux/"/>
+    
+    
+      <category term="Deep Learning" scheme="http://hsgspace.com/tags/Deep-Learning/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux 常用命令整理</title>
