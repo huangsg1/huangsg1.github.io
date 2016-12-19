@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://hsgspace.com/books/index.html</loc>
+    
+    <lastmod>2016-12-19T01:46:38.115Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://hsgspace.com/2016/12/06/CentOS%207%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85CUDA%E3%80%81CuDNN%E3%80%81TensorFlow/</loc>
     
     <lastmod>2016-12-06T08:50:29.375Z</lastmod>
@@ -47,20 +54,6 @@
     <loc>http://hsgspace.com/about/index.html</loc>
     
     <lastmod>2016-08-26T12:45:29.229Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hsgspace.com/books/index.html</loc>
-    
-    <lastmod>2016-08-25T06:54:59.845Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hsgspace.com/books/index1.html</loc>
-    
-    <lastmod>2016-08-25T06:50:03.661Z</lastmod>
     
   </url>
   
